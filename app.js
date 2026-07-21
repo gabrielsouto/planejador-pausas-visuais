@@ -1,0 +1,5 @@
+const acoes=['Olhe para um objeto distante e pisque conscientemente.','Levante, caminhe um pouco e mude a postura.','Faça uma tarefa breve sem tela.','Confira reflexos e ajuste a iluminação sem aumentar o brilho.'];
+function minutos(h){const[a,b]=h.split(':').map(Number);return a*60+b}function hora(m){return `${String(Math.floor(m/60)%24).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`}
+function planejar(inicio,fim,intervalo){const ini=minutos(inicio),final=minutos(fim),passo=Number(intervalo);if(final<=ini||passo<15)return[];const lista=[];for(let m=ini+passo,i=0;m<final;m+=passo,i++)lista.push({hora:hora(m),acao:acoes[i%acoes.length]});return lista}
+if(typeof document!=='undefined')document.querySelector('#form').addEventListener('submit',e=>{e.preventDefault();const p=planejar(inicio.value,fim.value,intervalo.value);agenda.innerHTML=p.length?p.map(x=>`<li><time>${x.hora}</time><span>${x.acao}</span></li>`).join(''):'<li>O horário final precisa ser posterior ao inicial.</li>'});
+if(typeof module!=='undefined')module.exports={planejar,minutos,hora,acoes};
